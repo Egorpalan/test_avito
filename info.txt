@@ -1,0 +1,16 @@
+/cmd
+    /app
+        main.go
+/internal
+    /handlers
+        tenders.go
+        bids.go
+        reviews.go
+    /models
+        tender.go
+        bid.go
+        review.go
+    /db
+        db.go
+/migrations
+Dockerfile
