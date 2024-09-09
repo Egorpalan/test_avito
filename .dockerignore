@@ -1,7 +1,10 @@
-.idea
-*.iml
-.git/
-.gradle
-gradle
-out/
-Dockerfile
+bin/
+obj/
+*.exe
+*.dll
+*.so
+*.dylib
+
+.DS_Store
+
+vendor/
