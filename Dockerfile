@@ -1,24 +1,26 @@
-FROM golang:1.22-alpine AS builder
+# Используем базовый образ Go
+FROM golang:1.22.3-alpine
 
+# Устанавливаем рабочую директорию внутри контейнера
 WORKDIR /app
 
+# Копируем go.mod и go.sum для установки зависимостей
 COPY go.mod go.sum ./
+
+# Устанавливаем зависимости
 RUN go mod download
 
+# Копируем весь исходный код приложения
 COPY . .
 
-RUN go build -o main ./cmd/app
+# Собираем приложение
+RUN go build -o main ./cmd/app/main.go
 
-FROM alpine:latest
+# Копируем файл .env в контейнер
+COPY .env ./
 
-RUN apk add --no-cache libc6-compat
-
-WORKDIR /app
-
-COPY --from=builder /app/main /app/main
-COPY .env /app/.env
-
+# Указываем порт, который будет использоваться приложением
 EXPOSE 8080
 
-CMD ["/app/main"]
-
+# Запускаем приложение
+CMD ["./main"]
